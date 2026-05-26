@@ -1,0 +1,2 @@
+106.213.85.175 - - [23/May/2026:13:25:28 +0000] "GET / HTTP/1.1" 200 409 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+106.213.85.175 - - [23/May/2026:13:25:28 +0000] "GET /favicon.ico HTTP/1.1" 404 196 "http://52.32.44.80/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"

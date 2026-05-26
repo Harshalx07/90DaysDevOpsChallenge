@@ -1,0 +1,4 @@
+Hello, this is Harshal
+I am practicing Linux commands
+Today is Day 06 of DevOps
+Learning file handling is important

@@ -1,16 +1,21 @@
-# Day 13 – Linux Volume Management (LVM)
+# Day 13 - Linux Volume Management (LVM)
 
-## Objective
+## Introduction
 
-Learn Linux LVM concepts by creating Physical Volumes, Volume Groups, Logical Volumes, and dynamically extending storage.
+Today I learned about Linux Volume Management (LVM).
+LVM helps manage storage in a flexible way compared to traditional disk partitioning. It allows logical volumes to be resized easily without recreating partitions.
+
+For this task, I created a virtual disk, configured LVM, mounted the filesystem, and extended the storage dynamically.
 
 ---
 
-# Step 1: Check Existing Storage
+# Step 1 - Checking Current Storage
+
+First, I checked the current disks and filesystem usage in the system.
 
 ## Commands Used
 
-```bash id="4eqz1j"
+```bash id="x90z2d"
 lsblk
 pvs
 vgs
@@ -18,79 +23,96 @@ lvs
 df -h
 ```
 
-## Purpose
+## What I Observed
 
-Checked current block devices, mounted filesystems, and existing LVM configuration.
+* `lsblk` showed available block devices
+* `pvs`, `vgs`, and `lvs` showed no existing LVM setup
+* `df -h` displayed mounted filesystems and storage usage
 
 ---
 
-# Step 2: Create Virtual Disk
+# Step 2 - Creating a Virtual Disk
+
+Since I did not have an extra disk attached, I created a virtual disk file for practice.
 
 ## Commands Used
 
-```bash id="n8v95x"
+```bash id="pw3m2q"
 dd if=/dev/zero of=/tmp/disk2.img bs=1M count=1024
+```
+
+Then I attached it to a loop device.
+
+```bash id="y6uznp"
 losetup -f
 losetup /dev/loop5 /tmp/disk2.img
 losetup -a
 ```
 
-## Purpose
+## What I Learned
 
-Created a 1GB virtual disk and attached it to a loop device for LVM practice.
+Loop devices help simulate real disks in Linux systems.
 
 ---
 
-# Step 3: Create Physical Volume (PV)
+# Step 3 - Creating Physical Volume
+
+Next, I initialized the loop device as a Physical Volume.
 
 ## Commands Used
 
-```bash id="kdm97f"
+```bash id="o3l6y4"
 pvcreate /dev/loop5
 pvs
 ```
 
-## Purpose
+## What Happened
 
-Initialized the loop device as a Physical Volume.
+The system successfully created the Physical Volume and displayed it in the PV list.
 
 ---
 
-# Step 4: Create Volume Group (VG)
+# Step 4 - Creating Volume Group
+
+After creating the PV, I created a Volume Group.
 
 ## Commands Used
 
-```bash id="4ep5es"
+```bash id="siv6qj"
 vgcreate devops-vg /dev/loop5
 vgs
 ```
 
-## Purpose
+## What I Learned
 
-Created a Volume Group named `devops-vg`.
+A Volume Group combines physical storage and acts like a storage pool for Logical Volumes.
 
 ---
 
-# Step 5: Create Logical Volume (LV)
+# Step 5 - Creating Logical Volume
+
+Then I created a Logical Volume from the Volume Group.
 
 ## Commands Used
 
-```bash id="g5vqqq"
+```bash id="bjlwm1"
 lvcreate -L 500M -n app-data devops-vg
 lvs
 ```
 
-## Purpose
+## What Happened
 
-Created a 500MB Logical Volume named `app-data`.
+A 500MB logical volume named `app-data` was successfully created.
 
 ---
 
-# Step 6: Format and Mount Logical Volume
+# Step 6 - Formatting and Mounting
+
+After creating the logical volume, I formatted it using the EXT4 filesystem and mounted it.
 
 ## Commands Used
 
-```bash id="jlwmc2"
+```bash id="u6b12q"
 mkfs.ext4 /dev/devops-vg/app-data
 
 mkdir -p /mnt/app-data
@@ -100,17 +122,19 @@ mount /dev/devops-vg/app-data /mnt/app-data
 df -h /mnt/app-data
 ```
 
-## Purpose
+## What I Observed
 
-Formatted the logical volume with EXT4 filesystem and mounted it successfully.
+The filesystem mounted successfully and storage became available under `/mnt/app-data`.
 
 ---
 
-# Step 7: Extend Logical Volume
+# Step 7 - Extending the Logical Volume
+
+Finally, I extended the storage size dynamically.
 
 ## Commands Used
 
-```bash id="2lyrmt"
+```bash id="8bhp4u"
 lvextend -L +200M /dev/devops-vg/app-data
 
 resize2fs /dev/devops-vg/app-data
@@ -118,53 +142,54 @@ resize2fs /dev/devops-vg/app-data
 df -h /mnt/app-data
 ```
 
-## Purpose
+## What Happened
 
-Extended the logical volume size dynamically and resized the filesystem without data loss.
+* The logical volume size increased by 200MB
+* The filesystem resized successfully
+* Storage expansion happened without recreating partitions
 
 ---
 
-# Screenshots Included
+# Challenges Faced
 
-* lsblk output
-* pvs output
-* vgs output
-* lvs output
-* Mounted filesystem verification
-* Logical volume extension output
+While doing this assignment, I faced multiple issues:
+
+* Loop device conflicts
+* Mounted filesystem errors
+* Duplicate Physical Volume UUID warnings
+
+I solved them by:
+
+* Cleaning old loop devices
+* Recreating the virtual disk
+* Using a fresh loop device
+
+This troubleshooting helped me understand Linux storage management much better.
 
 ---
 
 # What I Learned
 
-1. LVM provides flexible storage management in Linux systems.
+1. LVM provides flexible storage management in Linux.
 
-2. Storage can be expanded dynamically without repartitioning disks.
+2. Logical Volumes can be resized dynamically without data loss.
 
-3. Physical Volumes, Volume Groups, and Logical Volumes work together to create scalable storage architecture.
-
----
-
-# LVM Architecture
-
-```text id="6y8w3m"
-Disk
- ↓
-Physical Volume (PV)
- ↓
-Volume Group (VG)
- ↓
-Logical Volume (LV)
- ↓
-Filesystem
- ↓
-Mount Point
-```
+3. Troubleshooting storage issues is an important Linux administration skill.
 
 ---
 
+# Screenshots Added
 
+* lsblk output
+* pvcreate output
+* vgcreate output
+* lvcreate output
+* Mounted filesystem output
+* Logical volume extension output
+
+---
 
 # Conclusion
 
-Today I learned how Linux LVM helps administrators manage storage efficiently by creating scalable and extendable logical volumes dynamically.
+This task gave me practical experience with Linux storage management using LVM.
+I learned how enterprise systems manage storage dynamically and how Linux administrators handle real-world storage troubleshooting.

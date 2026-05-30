@@ -41,7 +41,7 @@ google.com.		293	IN	A	142.250.73.78
 
 ### Screenshot
 
-![alt text](<Screenshot 2026-05-30 at 7.34.36 PM.png>)
+![day-15/dig-google-com.png](dig-google-com.png)
 
 ---
 
@@ -80,7 +80,7 @@ ip addr show
 
 ### Screenshot
 
-![alt text](<Screenshot 2026-05-30 at 7.34.44 PM.png>)
+![day-15/ip-addr-show.png](ip-addr-show.png)
 
 ---
 
@@ -151,7 +151,7 @@ ubuntu@ip-172-31-41-12:~$ git google.com
 
 ### Screenshot
 
-![alt text](<Screenshot 2026-05-30 at 7.34.55 PM.png>)
+![day-15/ss-tulpn.png](ss-tulpn.png)
 
 ---
 

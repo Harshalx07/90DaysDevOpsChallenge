@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+
+  postgres:
+    image: postgres
+    container_name: project-postgres
+
+    environment:
+      POSTGRES_PASSWORD: admin123
+
+    volumes:
+      - project-db-data:/var/lib/postgresql/data
+
+    networks:
+      - project-net
+
+  flask-app:
+    build: ./app
+
+    container_name: project-app
+
+    ports:
+      - "5000:5000"
+
+    depends_on:
+      - postgres
+
+    networks:
+      - project-net
+
+volumes:
+  project-db-data:
+
+networks:
+  project-net:

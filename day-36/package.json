@@ -1,0 +1,13 @@
+{
+  "name": "devops-notes-app",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "mongoose": "^8.14.1",
+    "cors": "^2.8.5"
+  }
+}

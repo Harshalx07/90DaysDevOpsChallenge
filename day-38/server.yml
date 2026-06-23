@@ -1,0 +1,22 @@
+---
+server:
+    name: web-server
+    ip: 192.168.1.10
+    port: 8080
+database:
+    host: localhost
+    name: appdb
+
+    credentials:
+        username: admin
+        password: password123
+
+startup_script_literal: |
+       #!/bin/bash
+        echo "Starting application"
+        systemctl start nginx
+
+startup_script_folded: >
+     This is a long startup
+     script description that
+     becomes a single line.

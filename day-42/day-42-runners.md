@@ -150,19 +150,6 @@ runs-on:
 
 ---
 
-# Screenshots
-
-## Self-Hosted Runner Registered
-
-> *Insert screenshot of the runner showing **Connected/Idle** in GitHub.*
-
----
-
-## Workflow Running on Self-Hosted Runner
-
-> *Insert screenshot of the workflow executing on the self-hosted runner.*
-
----
 
 ## Conclusion
 

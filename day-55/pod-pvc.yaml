@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pvc-pod
+spec:
+  containers:
+  - name: busybox
+    image: busybox
+    command:
+      - sh
+      - -c
+      - |
+        echo "Started at $(date)" >> /data/message.txt
+        sleep 3600
+
+    volumeMounts:
+      - mountPath: /data
+        name: storage
+
+  volumes:
+    - name: storage
+      persistentVolumeClaim:
+        claimName: my-pvc
